@@ -1,5 +1,5 @@
 # init jest
-npm init -y
+npm init -y  
 npm install --save-dev jest
 
 # install babel
@@ -15,7 +15,7 @@ npm install react react-dom –save
 npm install axios –save
 
 npm install @babel/core @babel/preset-env @babel/preset-react @babel/plugin-syntax-jsx babel-loader –save-dev
-
+## add .babelrc file
     .babelrc    
     {    
         presets: ['@babel/preset-env', ['@babel/preset-react', {runtime: 'automatic'}] ],    
