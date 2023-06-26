@@ -1,6 +1,8 @@
 #sudo apt install snapd
 
-#sudo snap set system proxy.http=http://web-proxy.sgp.hpecorp.net:8080  
-#sudo snap set system proxy.https=http://web-proxy.sgp.hpecorp.net:8080  
+#sudo snap find microk8s
 
-#snap install microk8s --classic
+# install MicroK8s 
+#sudo snap install microk8s --classic    
+microk8s (1.27/stable) v1.27.2 from Canonical installed
+
