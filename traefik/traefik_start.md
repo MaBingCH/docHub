@@ -69,8 +69,8 @@ server.go  func (s *Server) Start(ctx context.Context)
 					}
 		...
 ```
-defer svr.Close()  
- ...
- #等待退出signal
- 	svr.Wait()   
-	log.Info().Msg("Shutting down")  
+defer svr.Close()    
+ ...  
+ #等待退出signal  
+svr.Wait()   
+log.Info().Msg("Shutting down")    
