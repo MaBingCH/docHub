@@ -1,0 +1,14 @@
+server.port: 9001
+server.ssl.key-store: classpath:keystore.jks
+server.ssl.key-store-password: keystore
+server.ssl.key-password: keystore
+server.servlet.context-path: /demo
+server.http2.enabled: true
+
+server.tomcat.basedir: my-tomcat
+server.tomcat.accesslog.enabled: true
+server.tomcat.accesslog.pattern: "%t %a %r %s (%D ms)"
+
+logging.level.org.springframework.web: DEBUG
+
+spring.devtools.restart.additional-paths: src/main/java
