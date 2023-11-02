@@ -1,0 +1,7 @@
+#spring.data.r2dbc.repositories.enabled=true
+spring.r2dbc.url: r2dbc:mysql://localhost:3306/test
+spring.r2dbc.username: root
+spring.r2dbc.password: ""
+
+springdoc.swagger-ui.path: /apis
+
