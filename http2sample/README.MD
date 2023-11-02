@@ -48,3 +48,61 @@ server.tomcat.accesslog.pattern: "%t %a %r %s (%D ms)"
 ```
 # curl 
 curl -vvv --http2 http://127.0.0.1:5080/demo/users/123
+
+
+## undertow http2
+```
+  		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+				<exclusions>
+					<!-- Exclude the Tomcat dependency -->
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+					</exclusion>
+				</exclusions>
+		</dependency>
+
+		<!-- Use undertow instead -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+```
+## undertow jetty
+
+
+```
+  		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+				<exclusions>
+					<!-- Exclude the Tomcat dependency -->
+					<exclusion>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-starter-tomcat</artifactId>
+					</exclusion>
+				</exclusions>
+		</dependency>
+		
+		<!-- Use Jetty instead --> 
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty.http2/http2-server -->
+		<dependency>
+		    <groupId>org.eclipse.jetty.http2</groupId>
+		    <artifactId>http2-server</artifactId>
+		    <version>9.4.53.v20231009</version>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.eclipse.jetty/jetty-alpn-conscrypt-server -->
+		<dependency>
+		    <groupId>org.eclipse.jetty</groupId>
+		    <artifactId>jetty-alpn-conscrypt-server</artifactId>
+		    <version>9.4.53.v20231009</version>
+		</dependency>
+```
