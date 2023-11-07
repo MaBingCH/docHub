@@ -14,6 +14,18 @@ Spring MVC 的前端控制器是 DispatcherServlet, 而 WebFlux 是 DispatcherHa
 			<artifactId>spring-boot-starter-webflux</artifactId>
 		</dependency>
 ```
+## r2dbc
+
+https://spring.io/projects/spring-data-r2dbc
+
+    H2 (io.r2dbc:r2dbc-h2)
+    MariaDB (org.mariadb:r2dbc-mariadb)
+    Microsoft SQL Server (io.r2dbc:r2dbc-mssql)
+    MySQL (io.asyncer:r2dbc-mysql)
+    jasync-sql MySQL (com.github.jasync-sql:jasync-r2dbc-mysql)
+    Postgres (io.r2dbc:r2dbc-postgresql)
+    Oracle (com.oracle.database.r2dbc:oracle-r2dbc)
+
 
 ## example
 
@@ -21,7 +33,7 @@ https://github.com/jasync-sql/jasync-mysql-example
 
 https://github.com/jasync-sql/jasync-postgresql-example
 
-## Query
+### Query的用法
 
 ```
     Using Like: select ... like :username
@@ -35,7 +47,7 @@ https://github.com/jasync-sql/jasync-postgresql-example
 ```
   https://docs.spring.io/spring-data/jpa/docs/current/reference/html/
 
-## 初始化数据
+### springboot初始化数据
 ```
 @Bean
 ConnectionFactoryInitializer initializer(ConnectionFactory connectionFactory) {
@@ -73,7 +85,7 @@ spring.datasource.data=classpath:data-init.sql
 		</dependency>
 ```
 
-##
+## WebExceptionHandler实现异常拦截
 指定该实体bean被加载的顺序，注解中的值越小越优先被加载注入
 
 we set the order of our global error handler to -2. 
@@ -103,6 +115,37 @@ public class ExceptionAdvisor {
     public Mono<Map<String, Object>> exceptions(Throwable e)
     {
         return Mono.just(Map.of("message", "bad request."));
+    }
+}
+
+```
+
+## WebFilter实现request拦截处理
+
+```java
+
+@Component
+@Slf4j
+public class LogFilter implements WebFilter {
+
+    @Override
+    public Mono<Void> filter(ServerWebExchange exchange, WebFilterChain chain) {
+        // TODO pre-hanlder
+        long startTime = System.currentTimeMillis();
+        String path = exchange.getRequest().getURI().getPath();
+        log.info("Serving '{}'", path);
+
+        return chain.filter(exchange).doAfterTerminate(() -> {
+                    // TODO after-hanlder
+                    exchange.getResponse().getHeaders().entrySet().forEach(e ->
+                            log.info("Response header '{}': {}", e.getKey(), e.getValue()));
+
+                            log.info("Served '{}' as {} in {} msec",
+                            path,
+                            exchange.getResponse().getStatusCode(),
+                            System.currentTimeMillis() - startTime);
+                }
+        );
     }
 }
 
